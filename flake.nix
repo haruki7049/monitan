@@ -26,7 +26,12 @@
       ];
 
       perSystem =
-        { pkgs, lib, ... }:
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
         let
           nativeBuildInputs = [
             pkgs.deno # Deno
@@ -49,6 +54,10 @@
 
           devShells.default = pkgs.mkShell {
             inherit nativeBuildInputs;
+
+            inputsFrom = [
+              config.treefmt.build.devShell
+            ];
           };
         };
     };
