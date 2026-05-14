@@ -3,6 +3,7 @@ export function Main() {
     <main>
       <h1>Monitan</h1>
       <p>This is a WIP web application</p>
+      <p>Foo!!</p>
 
       <address>
         <p>
