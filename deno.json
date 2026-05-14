@@ -1,0 +1,19 @@
+{
+  "tasks": {
+    "serve": "deno serve main.ts",
+    "test": "deno test --allow-net",
+    "lint": "deno lint"
+  },
+
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"]
+    }
+  },
+
+  "nodeModulesDir": "none",
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.12.18"
+  }
+}
