@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "serve": "deno serve main.ts",
+    "serve": "deno serve main.tsx",
     "test": "deno test --allow-net",
     "lint": "deno lint"
   },
@@ -12,8 +12,15 @@
     }
   },
 
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "@hono/hono/jsx"
+  }
+
   "nodeModulesDir": "none",
   "imports": {
-    "@hono/hono": "jsr:@hono/hono@^4.12.18"
+    "@hono/hono": "jsr:@hono/hono@^4.12.18",
+    "react": "npm:react@^19.2.6",
+    "tailwindcss": "npm:tailwindcss@^4.3.0"
   }
 }

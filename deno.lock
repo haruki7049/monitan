@@ -1,16 +1,28 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@hono/hono@^4.12.18": "4.12.18"
+    "jsr:@hono/hono@^4.12.18": "4.12.18",
+    "npm:react@^19.2.6": "19.2.6",
+    "npm:tailwindcss@^4.3.0": "4.3.0"
   },
   "jsr": {
     "@hono/hono@4.12.18": {
       "integrity": "854fd0628abd7703a1583807f1ae8f99399604b9452b6a2a777fd3e097977b8c"
     }
   },
+  "npm": {
+    "react@19.2.6": {
+      "integrity": "sha512-sfWGGfavi0xr8Pg0sVsyHMAOziVYKgPLNrS7ig+ivMNb3wbCBw3KxtflsGBAwD3gYQlE/AEZsTLgToRrSCjb0Q=="
+    },
+    "tailwindcss@4.3.0": {
+      "integrity": "sha512-y6nxMGB1nMW9R6k96e5gdIFzcfL/gTJRNaqGes1YvkLnPVXzWgbqFF2yLC0T8G774n24cx3Pe8XrKoniCOAH+Q=="
+    }
+  },
   "workspace": {
     "dependencies": [
-      "jsr:@hono/hono@^4.12.18"
+      "jsr:@hono/hono@^4.12.18",
+      "npm:react@^19.2.6",
+      "npm:tailwindcss@^4.3.0"
     ]
   }
 }
