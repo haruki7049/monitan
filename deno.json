@@ -15,7 +15,7 @@
   "compilerOptions": {
     "jsx": "precompile",
     "jsxImportSource": "@hono/hono/jsx"
-  }
+  },
 
   "nodeModulesDir": "none",
   "imports": {
