@@ -4,4 +4,4 @@ const app = new Hono();
 
 app.get("/", (c) => c.html(<Index />));
 
-Deno.serve(app.fetch);
+export default app;
