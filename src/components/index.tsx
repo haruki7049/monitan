@@ -1,6 +1,10 @@
 import { Main } from "./Main.tsx";
 
-function Index() {
+type Props = {
+  database: Deno.Kv,
+};
+
+function Index({ database }: Props) {
   return (
     <html>
       <head>
@@ -13,7 +17,7 @@ function Index() {
       </head>
 
       <body>
-        <Main />
+        <Main database={database} />
       </body>
     </html>
   );

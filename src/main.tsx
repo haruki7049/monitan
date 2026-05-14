@@ -1,7 +1,11 @@
 import { Hono } from "@hono/hono";
 import { Index } from "./components/index.tsx";
-const app = new Hono();
+import { startup } from "./startup.ts";
 
-app.get("/", (c) => c.html(<Index />));
+const app = new Hono();
+const kv = await Deno.openKv();
+startup(kv);
+
+app.get("/", (c) => c.html(<Index database={kv} />));
 
 export default app;

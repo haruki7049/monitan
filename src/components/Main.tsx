@@ -1,4 +1,8 @@
-export function Main() {
+type Props = {
+  database: Deno.Kv,
+};
+
+export function Main({ database }: Props) {
   return (
     <main>
       <h1>Monitan</h1>
