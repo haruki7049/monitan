@@ -1,7 +1,19 @@
 export function Main() {
   return (
     <main>
-      <p>Hello haruki</p>
+      <h1>Monitan</h1>
+      <p>This is a WIP web application</p>
+
+      <address>
+        <a href="https://haruki7049.dev">haruki7049.dev</a>
+        <a href="https://github.com/haruki7049">github.com/haruki</a>
+        <p>
+          Git Repository:{" "}
+          <a href="https://github.com/haruki7049/monitan">
+            github.com/haruki7049/monitan
+          </a>
+        </p>
+      </address>
     </main>
   );
 }
