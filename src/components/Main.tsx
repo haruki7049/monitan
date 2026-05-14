@@ -1,5 +1,5 @@
 type Props = {
-  database: Deno.Kv,
+  database: Deno.Kv;
 };
 
 export function Main({ database }: Props) {

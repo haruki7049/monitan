@@ -1,7 +1,7 @@
 import { Main } from "./Main.tsx";
 
 type Props = {
-  database: Deno.Kv,
+  database: Deno.Kv;
 };
 
 function Index({ database }: Props) {
