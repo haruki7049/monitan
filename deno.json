@@ -21,5 +21,7 @@
   "imports": {
     "@hono/hono": "jsr:@hono/hono@^4.12.18",
     "tailwindcss": "npm:tailwindcss@^4.3.0"
-  }
+  },
+
+  "unstable": ["kv"]
 }
