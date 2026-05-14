@@ -1,4 +1,4 @@
-import { Main } from "./components/Main.tsx";
+import { Main } from "./Main.tsx";
 
 function Index() {
   return (
