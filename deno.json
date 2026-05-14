@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "serve": "deno serve --allow-net --unstable-kv src/main.tsx",
+    "serve": "deno serve --allow-net src/main.tsx",
     "test": "deno test --allow-net",
     "lint": "deno lint"
   },
