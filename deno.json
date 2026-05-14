@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "serve": "deno serve --allow-env main.tsx",
+    "serve": "deno serve main.tsx",
     "test": "deno test --allow-net",
     "lint": "deno lint"
   },
