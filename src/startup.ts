@@ -23,7 +23,7 @@ export interface GitHubStatusResponse {
 }
 
 function startup(database: Deno.Kv) {
-  Deno.cron("GitHub Status fetch", { minute: { every: 1 } }, async () => {
+  Deno.cron("GitHub Status fetch", { minute: { every: 5 } }, async () => {
     const url: string = "https://www.githubstatus.com/api/v2/status.json";
     const response: Response = await fetch(url);
     const githubResponse: GitHubStatusResponse = await response.json();
