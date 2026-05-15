@@ -1,4 +1,4 @@
-import { GitHubStatusResponse } from "../startup.ts";
+import { fetchAndSaveStatus, GitHubStatusResponse } from "../startup.ts";
 
 type Props = {
   database: Deno.Kv;
@@ -9,7 +9,18 @@ export async function Main({ database }: Props) {
     "github_status",
     "latest",
   ]);
-  const statusData = latestStatus.value;
+
+  let statusData = latestStatus.value;
+
+  // Fetch immediately if data does not exist in KV
+  if (!statusData) {
+    try {
+      statusData = await fetchAndSaveStatus(database);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   const isAvailable = statusData?.status.indicator === "none";
 
   return (

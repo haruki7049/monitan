@@ -1,4 +1,3 @@
-// Define the page information
 export interface Page {
   id: string;
   name: string;
@@ -7,39 +6,48 @@ export interface Page {
   updated_at: string;
 }
 
-// Define the status indicator types
 export type Indicator = "none" | "minor" | "major" | "critical" | "maintenance";
 
-// Define the current status
 export interface Status {
   indicator: Indicator;
   description: string;
 }
 
-// Define the root response structure
 export interface GitHubStatusResponse {
   page: Page;
   status: Status;
 }
 
-function startup(database: Deno.Kv) {
-  Deno.cron("GitHub Status fetch", { minute: { every: 5 } }, async () => {
-    const url: string = "https://www.githubstatus.com/api/v2/status.json";
-    const response: Response = await fetch(url);
+// Export the fetch function to use it as a fallback
+export async function fetchAndSaveStatus(
+  database: Deno.Kv,
+): Promise<GitHubStatusResponse> {
+  try {
+    const url = "https://www.githubstatus.com/api/v2/status.json";
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+
     const githubResponse: GitHubStatusResponse = await response.json();
 
-    // Add history
-    {
-      const key = ["github_status", "history", githubResponse.page.updated_at];
-      await database.set(key, githubResponse);
-    }
+    await database.set([
+      "github_status",
+      "history",
+      githubResponse.page.updated_at,
+    ], githubResponse);
+    await database.set(["github_status", "latest"], githubResponse);
 
-    // Add latest state
-    {
-      const key = ["github_status", "latest"];
-      await database.set(key, githubResponse);
-    }
-  });
+    return githubResponse;
+  } catch (error) {
+    console.error("Failed to fetch GitHub status:", error);
+    throw error;
+  }
 }
 
-export { startup };
+export function startup(database: Deno.Kv) {
+  Deno.cron("GitHub Status fetch", { minute: { every: 5 } }, async () => {
+    await fetchAndSaveStatus(database);
+  });
+}
