@@ -1,13 +1,34 @@
+import { GitHubStatusResponse } from "../startup.ts";
+
 type Props = {
   database: Deno.Kv;
 };
 
-export function Main({ database }: Props) {
+export async function Main({ database }: Props) {
+  const latestStatus = await database.get<GitHubStatusResponse>([
+    "github_status",
+    "latest",
+  ]);
+  const statusData = latestStatus.value;
+  const isAvailable = statusData?.status.indicator === "none";
+
   return (
     <main>
       <h1>Monitan</h1>
       <p>This is a WIP web application</p>
       <p>Foo!!</p>
+
+      <section>
+        <h2>GitHub Status</h2>
+        {statusData
+          ? (
+            <ul>
+              <li>Status: {statusData.status.description}</li>
+              <li>Available: {isAvailable ? "Yes" : "No"}</li>
+            </ul>
+          )
+          : <p>No data available yet.</p>}
+      </section>
 
       <address>
         <p>
