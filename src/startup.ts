@@ -47,7 +47,7 @@ export async function fetchAndSaveStatus(
 }
 
 export function startup(database: Deno.Kv) {
-  Deno.cron("GitHub Status fetch", { minute: { every: 5 } }, async () => {
+  Deno.cron("GitHub Status fetch", { minute: { every: 1 } }, async () => {
     await fetchAndSaveStatus(database);
   });
 }
