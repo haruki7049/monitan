@@ -13,11 +13,7 @@ export async function Main({ database }: Props) {
   const isAvailable = statusData?.status.indicator === "none";
 
   // Convert UTC string to JST
-  const lastUpdated = statusData
-    ? new Date(statusData.page.updated_at).toLocaleString("ja-JP", {
-      timeZone: "Asia/Tokyo",
-    })
-    : null;
+  const lastUpdated = statusData ? new Date(statusData.page.updated_at) : null;
 
   return (
     <main>
@@ -32,8 +28,8 @@ export async function Main({ database }: Props) {
             <ul>
               <li>
                 Last Updated: {/* Store UTC time in data attribute */}
-                <time class="local-time" data-utc={statusData.page.updated_at}>
-                  {statusData.page.updated_at}
+                <time>
+                  {lastUpdated ?? "Null"}
                 </time>
               </li>
               <li>Status: {statusData.status.description}</li>
