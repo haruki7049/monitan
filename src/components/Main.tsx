@@ -1,4 +1,4 @@
-import { fetchAndSaveStatus, GitHubStatusResponse } from "../startup.ts";
+import { GitHubStatusResponse } from "../startup.ts";
 
 type Props = {
   database: Deno.Kv;
@@ -9,19 +9,15 @@ export async function Main({ database }: Props) {
     "github_status",
     "latest",
   ]);
-
-  let statusData = latestStatus.value;
-
-  // Fetch immediately if data does not exist in KV
-  if (!statusData) {
-    try {
-      statusData = await fetchAndSaveStatus(database);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
+  const statusData = latestStatus.value;
   const isAvailable = statusData?.status.indicator === "none";
+
+  // Convert UTC string to JST
+  const lastUpdated = statusData
+    ? new Date(statusData.page.updated_at).toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+    })
+    : null;
 
   return (
     <main>
@@ -34,6 +30,12 @@ export async function Main({ database }: Props) {
         {statusData
           ? (
             <ul>
+              <li>
+                Last Updated: {/* Store UTC time in data attribute */}
+                <time class="local-time" data-utc={statusData.page.updated_at}>
+                  {statusData.page.updated_at}
+                </time>
+              </li>
               <li>Status: {statusData.status.description}</li>
               <li>Available: {isAvailable ? "Yes" : "No"}</li>
             </ul>
