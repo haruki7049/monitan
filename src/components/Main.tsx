@@ -17,9 +17,10 @@ export async function Main({ database }: Props) {
 
   return (
     <main>
-      <h1>Monitan</h1>
-      <p>This is a WIP web application</p>
-      <p>Foo!!</p>
+      <h1>Monitan (Japanese: もにたん)</h1>
+      <p>
+        Status monitoring web application for software engineers.
+      </p>
 
       <section>
         <h2>GitHub Status</h2>
@@ -41,10 +42,10 @@ export async function Main({ database }: Props) {
 
       <address>
         <p>
-          <a href="https://haruki7049.dev">haruki7049.dev</a>
+          Homepage: <a href="https://haruki7049.dev">haruki7049.dev</a>
         </p>
         <p>
-          <a href="https://github.com/haruki7049">github.com/haruki</a>
+          GitHub profile: <a href="https://github.com/haruki7049">@haruki</a>
         </p>
         <p>
           Git Repository:{" "}

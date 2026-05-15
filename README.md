@@ -1,4 +1,3 @@
-# monitan
+# Monitan (Japanese: もにたん)
 
-monitan (JP: もにたん) is a status monitoring web application for software
-engineers
+Status monitoring web application for software engineers
