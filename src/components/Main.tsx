@@ -16,7 +16,8 @@ export async function Main({ database }: Props) {
   const lastUpdated: Date | null = statusData
     ? new Date(statusData.response?.page.updated_at)
     : null;
-  const status: string | null = statusData?.response.status.description ?? null;
+  const status: string | null = statusData?.response?.status.description ??
+    null;
 
   return (
     <main>
