@@ -1,19 +1,22 @@
-import { GitHubStatusResponse } from "../startup.ts";
+import { Query } from "../startup.ts";
 
 type Props = {
   database: Deno.Kv;
 };
 
 export async function Main({ database }: Props) {
-  const latestStatus = await database.get<GitHubStatusResponse>([
+  const latestStatus = await database.get<Query>([
     "github_status",
     "latest",
   ]);
   const statusData = latestStatus.value;
-  const isAvailable = statusData?.status.indicator === "none";
+  const isAvailable = statusData?.response?.status.indicator === "none";
 
-  // Convert UTC string to JST
-  const lastUpdated = statusData ? new Date(statusData.page.updated_at) : null;
+  const fetchedAt: Date | null = statusData?.fetchedAt ?? null;
+  const lastUpdated: Date | null = statusData
+    ? new Date(statusData.response?.page.updated_at)
+    : null;
+  const status: string | null = statusData?.response.status.description ?? null;
 
   return (
     <main>
@@ -28,12 +31,15 @@ export async function Main({ database }: Props) {
           ? (
             <ul>
               <li>
+                Fetched At: <time>{fetchedAt ?? "Null"}</time>
+              </li>
+              <li>
                 Last Updated: {/* Store UTC time in data attribute */}
                 <time>
                   {lastUpdated ?? "Null"}
                 </time>
               </li>
-              <li>Status: {statusData.status.description}</li>
+              <li>Status: {status ?? "Null"}</li>
               <li>Available: {isAvailable ? "Yes" : "No"}</li>
             </ul>
           )

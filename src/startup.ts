@@ -18,6 +18,11 @@ export interface GitHubStatusResponse {
   status: Status;
 }
 
+export interface Query {
+  response: GitHubStatusResponse;
+  fetchedAt: Date;
+}
+
 // Export the fetch function to use it as a fallback
 export async function fetchAndSaveStatus(
   database: Deno.Kv,
@@ -31,13 +36,20 @@ export async function fetchAndSaveStatus(
     }
 
     const githubResponse: GitHubStatusResponse = await response.json();
+    const fetchedAt: Date = new Date();
 
     await database.set([
       "github_status",
       "history",
       githubResponse.page.updated_at,
-    ], githubResponse);
-    await database.set(["github_status", "latest"], githubResponse);
+    ], {
+      response: githubResponse,
+      fetchedAt: fetchedAt,
+    });
+    await database.set(["github_status", "latest"], {
+      response: githubResponse,
+      fetchedAt: fetchedAt,
+    });
 
     return githubResponse;
   } catch (error) {
